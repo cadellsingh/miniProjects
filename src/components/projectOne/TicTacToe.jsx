@@ -40,3 +40,6 @@ export const TicTacToe = () => {
     </MainContainer>
   );
 };
+
+// game recap
+// store states in array

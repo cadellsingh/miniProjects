@@ -9,10 +9,10 @@ const Turn = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* :hover {
-    cursor: ${(props: TurnProps) => (props.disabled ? 'default' : 'pointer')};
-    background-color: green;
-  } */
+  :hover {
+    cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+    background-color: lightblue;
+  }
 
   & p {
     font-size: 50px;
@@ -21,13 +21,24 @@ const Turn = styled.div`
 
 export const GridItem = ({ identifier, boardState }) => {
   const { state, handleBoardChanges } = useContext(GlobalContext);
-  console.log(state);
-  //   let playMade;
-  //   let alreadyPlayed = false;
-  //   for (const [key, value] of Object.entries())
+
+  let playMade;
+  let alreadyPlayed = false;
+  for (const [key, value] of Object.entries(state)) {
+    if (parseInt(key) === identifier) {
+      playMade = value;
+      alreadyPlayed = value === '' ? false : true;
+    }
+  }
+
   return (
-    <Turn>
-      <p>tst</p>
+    <Turn
+      disabled={alreadyPlayed}
+      onClick={() =>
+        alreadyPlayed ? null : handleBoardChanges(boardState, identifier)
+      }
+    >
+      <p>{playMade}</p>
     </Turn>
   );
 };
